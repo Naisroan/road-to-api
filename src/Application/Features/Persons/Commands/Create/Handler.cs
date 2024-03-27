@@ -2,10 +2,8 @@ using Domain.DomainErrors;
 using Domain.Entities.Persons;
 using Domain.Primitives;
 using Domain.ValueObjects;
-using ErrorOr;
-using MediatR;
 
-namespace Application.Commands.Persons.Create;
+namespace Application.Features.Persons.Commands;
 
 public sealed class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, ErrorOr<Person>>
 {
