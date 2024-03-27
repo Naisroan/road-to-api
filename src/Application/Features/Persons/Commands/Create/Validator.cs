@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Application.Commands.Persons.Create;
+namespace Application.Features.Persons.Commands;
 
 public class CreatePersonCommandValidator : AbstractValidator<CreatePersonCommand>
 {

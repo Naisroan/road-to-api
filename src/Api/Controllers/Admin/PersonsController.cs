@@ -1,4 +1,5 @@
-using Application.Commands.Persons.Create;
+using Application.Features.Persons.Commands;
+using Application.Features.Persons.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,25 @@ public class PersonsController : ApiBaseController
 
         return result.Match(
             person => Ok(result.Value),
+            errors => Problem(errors)
+        );
+    }
+
+    [HttpGet("/{id}")]
+    public async Task<IActionResult> Get(Guid id)
+    {
+        var result = await _sender.Send(new GetPersonQuery(id));
+
+        return result.Match(
+            person =>
+            {
+                if (person is null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(person);
+            },
             errors => Problem(errors)
         );
     }

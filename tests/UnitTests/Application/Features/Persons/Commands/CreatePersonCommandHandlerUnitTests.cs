@@ -1,10 +1,10 @@
-using Application.Commands.Persons.Create;
+using Application.Features.Persons.Commands;
 using Domain.DomainErrors;
 using Domain.Entities.Persons;
 using Domain.Primitives;
 using FluentAssertions;
 
-namespace Application.Commands.Persons.UnitTests.Create;
+namespace Application.UnitTests.Features.Persons.Commands.Create;
 
 public class CreatePersonCommandHandlerUnitTests
 {

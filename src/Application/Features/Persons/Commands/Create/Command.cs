@@ -1,8 +1,6 @@
-using ErrorOr;
 using Domain.Entities.Persons;
-using MediatR;
 
-namespace Application.Commands.Persons.Create;
+namespace Application.Features.Persons.Commands;
 
 /// <summary>
 /// Command to create a person, returns a IRequest with a Person object
