@@ -1,12 +1,12 @@
-using Application.Data;
 using Domain.Entities.Persons;
 using Domain.Primitives;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Infrastructure.Persistence;
 
-public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWork
+public class ApplicationDbContext : DbContext, IUnitOfWork
 {
     private readonly IPublisher _publisher;
 
@@ -42,5 +42,15 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWor
     public void ApplyMigrations()
     {
         Database.Migrate();
+    }
+
+    public static ApplicationDbContext MemoryContext(IPublisher publisher)
+    {
+        var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase("roadto_test")
+            .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            .Options;
+
+        return new ApplicationDbContext(contextOptions, publisher);
     }
 }

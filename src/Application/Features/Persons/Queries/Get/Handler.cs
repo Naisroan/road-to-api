@@ -1,19 +1,21 @@
 
 using Domain.Entities.Persons;
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Persons.Queries;
 
 public sealed class GetPersonQueryHandler : IRequestHandler<GetPersonQuery, ErrorOr<Person?>>
 {
-    private readonly IPersonRepository _repository;
+    private readonly ApplicationDbContext _context;
 
-    public GetPersonQueryHandler(IPersonRepository repository)
+    public GetPersonQueryHandler(ApplicationDbContext context)
     {
-        _repository = repository;
+        _context = context;
     }
 
     public async Task<ErrorOr<Person?>> Handle(GetPersonQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetAsync(new PersonId(request.Id));
+        return await _context.Persons.SingleOrDefaultAsync(p => p.Id.Value == request.Id);
     }
 }

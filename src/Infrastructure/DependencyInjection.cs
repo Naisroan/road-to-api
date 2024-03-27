@@ -1,8 +1,5 @@
-using Application.Data;
-using Domain.Entities.Persons;
 using Domain.Primitives;
 using Infrastructure.Persistence;
-using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,15 +19,11 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DB")));
 
-        services.AddScoped<IApplicationDbContext>(options =>
-            options.GetRequiredService<ApplicationDbContext>());
+        // services.AddScoped(options =>
+        //     options.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<IUnitOfWork>(options =>
             options.GetRequiredService<ApplicationDbContext>());
-
-        // Add scoped repositores
-
-        services.AddScoped<IPersonRepository, PersonRepository>();
 
         return services;
     }

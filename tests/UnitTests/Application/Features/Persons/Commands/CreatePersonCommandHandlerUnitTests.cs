@@ -1,14 +1,15 @@
 using Application.Features.Persons.Commands;
 using Domain.DomainErrors;
-using Domain.Entities.Persons;
 using Domain.Primitives;
 using FluentAssertions;
+using Infrastructure.Persistence;
+using MediatR;
 
 namespace Application.UnitTests.Features.Persons.Commands.Create;
 
 public class CreatePersonCommandHandlerUnitTests
 {
-    private readonly Mock<IPersonRepository> _mockRepository;
+    private readonly ApplicationDbContext _context;
 
     private readonly Mock<IUnitOfWork> _mockUnitOfWork;
 
@@ -18,9 +19,9 @@ public class CreatePersonCommandHandlerUnitTests
 
     public CreatePersonCommandHandlerUnitTests()
     {
-        _mockRepository = new Mock<IPersonRepository>();
+        _context = ApplicationDbContext.MemoryContext(new Mock<IPublisher>().Object);
         _mockUnitOfWork = new Mock<IUnitOfWork>();
-        _handler = new CreatePersonCommandHandler(_mockRepository.Object, _mockUnitOfWork.Object);
+        _handler = new CreatePersonCommandHandler(_context, _mockUnitOfWork.Object);
         _defaultCommand = new CreatePersonCommand(
             FirstName: Faker.Name.First(),
             MiddleName: Faker.Name.Middle(),

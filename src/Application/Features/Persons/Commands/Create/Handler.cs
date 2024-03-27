@@ -2,18 +2,19 @@ using Domain.DomainErrors;
 using Domain.Entities.Persons;
 using Domain.Primitives;
 using Domain.ValueObjects;
+using Infrastructure.Persistence;
 
 namespace Application.Features.Persons.Commands;
 
 public sealed class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, ErrorOr<Person>>
 {
-    private readonly IPersonRepository _repository;
+    private readonly ApplicationDbContext _context;
 
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreatePersonCommandHandler(IPersonRepository repository, IUnitOfWork unitOfWork)
+    public CreatePersonCommandHandler(ApplicationDbContext context, IUnitOfWork unitOfWork)
     {
-        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        _context = context ?? throw new ArgumentNullException(nameof(context));
         _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
     }
 
@@ -43,7 +44,7 @@ public sealed class CreatePersonCommandHandler : IRequestHandler<CreatePersonCom
             active: true
         );
 
-        var response = await _repository.AddAsync(person);
+        var response = (await _context.Persons.AddAsync(person)).Entity;
         await _unitOfWork.SaveChangesAsync();
 
         return response;

@@ -1,4 +1,4 @@
-using Application.Data;
+using Infrastructure.Persistence;
 
 namespace api;
 
@@ -7,7 +7,7 @@ public static class MigrationExtensions
     public static void ApplyMigrations(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<IApplicationDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         dbContext.ApplyMigrations();
     }
 }

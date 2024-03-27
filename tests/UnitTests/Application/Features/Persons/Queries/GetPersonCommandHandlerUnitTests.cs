@@ -1,19 +1,20 @@
 using Application.Features.Persons.Queries;
-using Domain.Entities.Persons;
 using FluentAssertions;
+using Infrastructure.Persistence;
+using MediatR;
 
 namespace Application.UnitTests.Features.Persons.Queris.Get;
 
 public class GetPersonQueryHandlerUnitTests
 {
-    private readonly Mock<IPersonRepository> _mockRepository;
+    private readonly ApplicationDbContext _context;
 
     private readonly GetPersonQueryHandler _handler;
 
     public GetPersonQueryHandlerUnitTests()
     {
-        _mockRepository = new Mock<IPersonRepository>();
-        _handler = new GetPersonQueryHandler(_mockRepository.Object);
+        _context = ApplicationDbContext.MemoryContext(new Mock<IPublisher>().Object);
+        _handler = new GetPersonQueryHandler(_context);
     }
 
     [Fact]
