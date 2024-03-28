@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace api.Controllers;
+namespace RoadToApi.Controllers;
 
 public class ErrorsControllers : ApiBaseController
 {

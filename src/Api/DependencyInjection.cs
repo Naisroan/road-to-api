@@ -1,6 +1,6 @@
-using api.Middlewares;
+using RoadToApi.Middlewares;
 
-namespace api;
+namespace RoadToApi;
 
 public static class DependencyInjection
 {

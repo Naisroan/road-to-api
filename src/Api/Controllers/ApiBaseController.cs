@@ -1,9 +1,9 @@
-using api.Common.Http;
+using RoadToApi.Common.Http;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace api.Controllers;
+namespace RoadToApi.Controllers;
 
 [Route("[controller]")]
 [ApiController]
