@@ -1,6 +1,6 @@
 using Application.Data;
 
-namespace api;
+namespace RoadToApi;
 
 public static class MigrationExtensions
 {
