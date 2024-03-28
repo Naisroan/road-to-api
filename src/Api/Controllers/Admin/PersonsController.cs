@@ -2,7 +2,7 @@ using Application.Commands.Persons.Create;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace api.Controllers.Admin;
+namespace RoadToApi.Controllers.Admin;
 
 [Route("admin/[controller]")]
 [ApiController]

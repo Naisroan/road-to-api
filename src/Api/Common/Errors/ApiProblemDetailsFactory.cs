@@ -1,11 +1,11 @@
 using System.Diagnostics;
-using api.Common.Http;
+using RoadToApi.Common.Http;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace api.Common.Errors;
+namespace RoadToApi.Common.Errors;
 
 public class ApiProblemDetailsFactory : ProblemDetailsFactory
 {
